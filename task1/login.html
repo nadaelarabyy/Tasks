@@ -1,0 +1,105 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Login</title>
+        <style>
+            *{
+                background-color: #282828;
+                color:white;
+            }
+            .fixed-header .container{
+                height: 15%;
+                width: 100%;
+            }
+            .fixed-header .container #logo{
+                margin-top: 1%;
+                margin-left: 1%;
+                width: 10%;
+                border: 0.05cm solid whitesmoke;
+            }
+            .fixed-header .container #logo p{
+                color: white;
+                font-family: 'Courier New', Courier, monospace;
+                font-size: 25px;
+            }
+            .fixed-header .container nav{
+                margin-left: 75%;
+                margin-bottom: 0.1%;
+                /* border: 0.05cm solid whitesmoke; */
+            }
+
+            .fixed-header .container nav a{
+                padding-right: 20px;
+                text-decoration: none;
+                font-size: large;
+            }
+            .fixed-header .container nav a:hover{
+                padding-right: 20px;
+                text-decoration: none;
+                font-size: large;
+                color: #DCAE96;
+            }
+            .login-card{
+                border: 0.05cm solid red;
+                width: 50%;
+                /* height: 100px; */
+                background-color: white;
+                margin-left: 25%;
+                margin-top: 3%;
+                padding-bottom: 50px;
+               
+            }
+            .login-card p{
+                font-family: 'Courier New', Courier, monospace;
+                font-size: 30px;
+                background-color: white;
+                color:black;
+                text-align: center;
+                font-weight: bold;
+            }
+            .login-card label,input{
+                font-family: 'Courier New', Courier, monospace;
+                font-size: 20px;
+                background-color: white;
+                color:black;
+                text-align: center;
+                margin-left: 33%;
+                width: 40%;
+
+            }
+            
+            
+        </style>
+    </head>
+    <body>
+        <div class="fixed-header">
+            <div class="container">
+                <div id="logo">
+                      <p><strong>&lt/&gtC</strong>ode</p>
+                </div>
+                <nav>
+                    <a href="./login.html">Login</a>
+                    <a href="./itemlist.html">ItemLists</a>
+                </nav>
+            </div>
+            <hr>
+            </div>
+        <div class="login-card" >
+            <p>Welcome back!</p> 
+            <form action="#" style="background-color: white;">
+                <label for="username">Username:</label>
+                <br>
+                <input type="text" id="fname" name="fname" required/><br><br>
+                <label for="password">Password:</label>
+                <br>
+                <input type="password" id="lname" name="lname" required/><br><br>
+                <input type="submit" value="Login" style="background-color: antiquewhite;"/>
+              </form> 
+
+        </div>
+        <div id="footer">
+
+        </div>
+
+    </body>
+</html>
