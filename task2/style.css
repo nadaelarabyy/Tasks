@@ -3,9 +3,3 @@ body{
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     color: grey;
 }
-.left, .right{
-    position: fixed;
-    top: 0;
-    bottom: 0;
-}
-

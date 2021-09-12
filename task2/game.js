@@ -3,11 +3,11 @@ function playButton(){
 }
 function generateImages(){
 var level = localStorage.getItem("level")==null?1:localStorage.getItem("level");
-var imagesNum = localStorage.getItem("imageNum")==null?1:localStorage.getItem("imageNum");
+var imagesNum = localStorage.getItem("imageNum")==null?2:localStorage.getItem("imageNum");
 var sections = ["left","right"]
 var sectionNum;
 // var sectionNum=1
-var randomNum = getRandomInt(imagesNum,imagesNum*level*2)
+var randomNum = getRandomInt(imagesNum,imagesNum+level*2)
 var pickedphoto = getRandomInt(0,randomNum)
 
 
@@ -16,17 +16,19 @@ for (let index = 0; index < randomNum; index++) {
     var img=document.createElement("img");
     var a = document.createElement("a")
     sectionNum = getRandomInt(0,2)
+    console.log(sectionNum)
     // sectionNum=0
     var section = document.getElementById(sections[sectionNum]);
     var x,y=0;
 
     if(sectionNum==0){
-        x = getRandomInt(0,section.clientWidth)
-        y = getRandomInt(0,section.clientHeight - 45)
+        x = getRandomInt(0,(window.innerWidth/2)-50)
+        y = getRandomInt(0,window.innerHeight)
     }
     else{
-        x = getRandomInt(600,600+section.clientWidth - 60)
-        y = getRandomInt(0,section.clientHeight - 45)
+        var w = document.getElementById("left")
+        x = getRandomInt((window.innerWidth/2)+50,(window.innerWidth/2)+section.clientWidth -50)
+        y = getRandomInt(0,window.innerHeight)
     }
     if(index === pickedphoto){
         img.src="images/winky.png"
