@@ -59,7 +59,6 @@ for(var i = 0; i < elms.length; i++){
         localStorage.removeItem("level");
         localStorage.removeItem("imageNum");
         
-
     };
 }
 var alink = document.getElementById("winky")
