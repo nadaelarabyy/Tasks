@@ -20,7 +20,7 @@ public class Main {
             if(emp.size()>=2)
                 System.out.println("Title "+key+" Count "+emp.size());
             else
-                System.out.println("Title "+key);
+                System.out.println("Special title "+key);
             for(Employee e:emp)
                 System.out.println(e.toString());
 
