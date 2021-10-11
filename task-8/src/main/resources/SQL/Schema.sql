@@ -148,3 +148,21 @@ create table Employee_project(
 # insert into Employee_project(Employee_id,Project_id)
 # values(5,5);
 #
+
+# -----------------------------------------
+-- ------------------------------------------------
+# -- First Query
+# select * from employee e inner join role r on e.dep_role_id  = r.role_id inner join department d on
+#         d.dep_id = r.department_id;
+# -- Second query
+# select * from employee e inner join project p inner join Employee_project ep on ep.Employee_id = e.emp_id and
+#                                                                                 ep.Project_id = p.proj_id where p.proj_name="NBE";
+# -- third query --> alot of inserts
+# -- bonus
+# select * from
+#     (select * from employee e inner join role r
+#                                          on r.role_id = e.dep_role_id
+#      where r.role_name = "HR_ASSOCIATE") As empl
+#         left join
+#     (select * from Employee_project ep) as epp
+#     on empl.emp_id = epp.Employee_id;

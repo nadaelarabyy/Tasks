@@ -26,15 +26,15 @@ public class TaskApplication {
     @Bean
     CommandLineRunner commandLineRunner(EmployeeRepository employeeRepository){
         return args -> {
-            System.out.println("Query Employees by their role==>");
+            System.out.println("<==Query Employees by their role==>");
             employeeRepository
                     .queryAllByRole("DEVELOPER")
                     .forEach(System.out::println);
-            System.out.println("Query Employees by their project name==>");
+            System.out.println("<==Query Employees by their project name==>");
 //            get id of project
             int projId = employeeRepository.getProjectIdByName("NBE").intValue();
 //            get employees
-//            employeeRepository.queryAllByWorkingProjectName(projId).forEach(System.out::println);
+            employeeRepository.queryAllByWorkingProjectName(projId).forEach(System.out::println);
 
 
 
