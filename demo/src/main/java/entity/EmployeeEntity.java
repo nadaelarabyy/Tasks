@@ -152,14 +152,13 @@ public class EmployeeEntity {
 
     @Override
     public String toString() {
-        return "EmployeeEntity{" +
+        return "Employee: " +
                 "firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
                 ", nationalId='" + nationalId + '\'' +
                 ", age=" + age +
                 ", hireDate=" + hireDate +
-                ", salary=" + salary +
-                '}';
+                ", salary=" + salary ;
     }
 }

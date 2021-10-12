@@ -1,59 +1,60 @@
-import entity.DepartmentEntity;
-import entity.EmployeeEntity;
-import entity.RoleEntity;
+import entity.*;
+import org.glassfish.jersey.client.ClientConfig;
+import service.Repo.EmployeeService;
+import service.Repo.ProjectService;
 
 import javax.management.relation.Role;
 import javax.persistence.*;
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.Entity;
+import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.UriBuilder;
+import java.net.URI;
 
 public class Main {
     public static void main(String[] args) {
-        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("default");
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
-        EntityTransaction transaction = entityManager.getTransaction();
-        try {
-            transaction.begin();
-//            query 1 -> all employees with their respective role and info
-            TypedQuery<EmployeeEntity> query1 = entityManager.createNamedQuery("EmployeeByRole",EmployeeEntity.class);
-            query1.setParameter(1, "DEVELOPER");
-            for (EmployeeEntity employee : query1.getResultList()) {
-                System.out.println(employee.toString());
-            }
-            System.out.println("==================================================");
-//            query 2 -> all employees with a specific project name
-            Query query2 = entityManager.createNativeQuery("select * from employee e inner join employee_project ep inner join project p on e.emp_id = ep.Employee_id and ep.Project_id = p.proj_id where p.proj_name= ?",
-                    EmployeeEntity.class);
-            query2.setParameter(1,"NBE");
-            for(Object emp:query2.getResultList()){
-                System.out.println(emp.toString());
-            }
-//            query 3 -> add an employee to a certain project
-            Query query3 = entityManager.createNativeQuery("insert into employee_project(Employee_id,Project_id) values(?1,?2)");
-            query3.setParameter(1,1);
-            query3.setParameter(2,5);
-//            query3.executeUpdate();
-//            query 4 -> display employees with a certain role who are currently
-//            not working on a project
-            Query query4 = entityManager.createNativeQuery("select empl.* from (select * from employee e inner join role r on r.role_id = e.dep_role_id where r.role_name = ?1) As empl left join (select * from Employee_project ep) as epp on empl.emp_id = epp.Employee_id;",EmployeeEntity.class);
-            query4.setParameter(1,"HR_ASSOCIATE");
-            for(Object emp:query4.getResultList()){
-                System.out.println(emp.toString());
-            }
 
+        ClientConfig config = new ClientConfig();
+        Client client = ClientBuilder.newClient(config);
+        WebTarget target = client.target(getBaseURI());
+//        getting all employees
+        System.out.println(target.path("api")
+        .path("Employee").request().accept(MediaType.APPLICATION_JSON)
+        .get(String.class));
+//      get non working employees for example developers
+        System.out.println(target.path("api")
+                .path("Employee")
+                .path("NonWorking")
+                .queryParam("role","DEVELOPER")
+                .request()
+                .accept(MediaType.APPLICATION_JSON).get(String.class));
+//        get Employees by project name for example NBE
+        System.out.println(
+                target.path("api").path("Employee").path("Projects")
+                        .path("NBE").request().accept(MediaType.APPLICATION_JSON)
+                        .get(String.class)
+        );
+//        add employee to a specific project
+        EmployeeService es = new EmployeeService();
+        ProjectService ps = new ProjectService();
+        EmployeeEntity ee = es.getEmployeeByid(3);
+        ProjectEntity pe = ps.getProjectByid(2);
+        EmployeeProjectEntity epe = new EmployeeProjectEntity();
+        epe.setEmployeeId(ee);
+        epe.setProjectId(pe);
+        System.out.println(
+                target.path("api").path("EmployeeProject")
+                        .request(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.TEXT_PLAIN)
+                        .post(Entity.json(epe),String.class)
+        );
 
-
-
-
-
-
-transaction.commit();
-
-        }
-        finally {
-            if(transaction.isActive()){
-                transaction.rollback();
-            }
-            entityManager.close();
-            entityManagerFactory.close();
-        }
     }
+    private static URI getBaseURI() {
+        //here server is running on 4444 port number and project name is restfuljersey
+        return UriBuilder.fromUri("http://localhost:8080").build();
+    }
+
 }

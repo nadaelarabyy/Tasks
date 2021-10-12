@@ -13,7 +13,7 @@ public class RoleEntity {
     @Column(name = "role_name")
     private String roleName;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne()
     @JoinColumn(name = "department_id")
     private DepartmentEntity departmentId;
 
