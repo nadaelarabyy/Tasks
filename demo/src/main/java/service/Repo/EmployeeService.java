@@ -3,6 +3,7 @@ package service.Repo;
 import entity.EmployeeEntity;
 
 import javax.persistence.*;
+import java.util.List;
 
 public class EmployeeService {
     EntityManagerFactory entityManagerFactory;
@@ -16,7 +17,7 @@ public class EmployeeService {
 
     }
 
-    public String getAllEmployees() {
+    public List<EmployeeEntity> getAllEmployees() {
 
         String out = "";
         try {
@@ -24,10 +25,10 @@ public class EmployeeService {
 //            query 1 -> all employees with their respective role and info
             Query query1 = entityManager.createNativeQuery("select distinct * from employee", EmployeeEntity.class);
 
-            for (Object employee : query1.getResultList()) {
-                out += employee.toString() + "\n";
-            }
-            return out;
+//            for (Object employee : query1.getResultList()) {
+//                out += employee.toString() + "\n";
+//            }
+            return query1.getResultList();
 
         } finally {
             if (transaction.isActive()) {
@@ -38,45 +39,43 @@ public class EmployeeService {
         }
     }
 
-    public String getNonWorkingEmployeesByRole(String role) {
+    public List<EmployeeEntity> getNonWorkingEmployeesByRole(String role) {
         transaction.begin();
         String out="";
         try {
 //            query 1 -> all employees with their respective role
             Query query4 = entityManager.createNativeQuery("select distinct empl.* from (select * from employee e inner join role r on r.role_id = e.dep_role_id where r.role_name = ?1) As empl left join (select * from Employee_project ep) as epp on empl.emp_id = epp.Employee_id;",EmployeeEntity.class);
             query4.setParameter(1,role);
+            return query4.getResultList();
 
-            for (Object employee : query4.getResultList()) {
-                out+=employee.toString()+"\n";
-            }
+            
         } finally {
             if (transaction.isActive()) {
                 transaction.rollback();
             }
             entityManager.close();
             entityManagerFactory.close();
-            return out;
 
         }
     }
 
-    public String getEmployeesByProjectName(String project) {
+    public List<EmployeeEntity> getEmployeesByProjectName(String project) {
         transaction.begin();
         String out="";
         try {
             Query query2 = entityManager.createNativeQuery("select e.* from employee e inner join employee_project ep inner join project p on e.emp_id = ep.Employee_id and ep.Project_id = p.proj_id where p.proj_name= ?",EmployeeEntity.class);
             query2.setParameter(1,project);
 
-            for (Object emp:query2.getResultList()){
-                out+=emp.toString()+"\n";
-            }
+//            for (Object emp:query2.getResultList()){
+//                out+=emp.toString()+"\n";
+//            }
+            return query2.getResultList();
         } finally {
             if (transaction.isActive()) {
                 transaction.rollback();
             }
             entityManager.close();
             entityManagerFactory.close();
-            return out;
 
         }
     }

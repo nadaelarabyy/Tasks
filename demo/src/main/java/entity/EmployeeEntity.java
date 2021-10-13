@@ -159,6 +159,9 @@ public class EmployeeEntity {
                 ", nationalId='" + nationalId + '\'' +
                 ", age=" + age +
                 ", hireDate=" + hireDate +
-                ", salary=" + salary ;
+                ", salary=" + salary
+                +", role= "+depRoleId.getRoleName()
+                +", department Name= "+depRoleId.getDepartmentId().getDepName()
+                +", department location= "+depRoleId.getDepartmentId().getDepLoc();
     }
 }

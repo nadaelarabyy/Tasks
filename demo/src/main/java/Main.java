@@ -40,7 +40,7 @@ public class Main {
         EmployeeService es = new EmployeeService();
         ProjectService ps = new ProjectService();
         EmployeeEntity ee = es.getEmployeeByid(3);
-        ProjectEntity pe = ps.getProjectByid(2);
+        ProjectEntity pe = ps.getProjectByid(4);
         EmployeeProjectEntity epe = new EmployeeProjectEntity();
         epe.setEmployeeId(ee);
         epe.setProjectId(pe);
