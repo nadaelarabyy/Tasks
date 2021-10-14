@@ -21,7 +21,10 @@ public class ProjectService {
             query2.setParameter(1,id);
             Object out = query2.getSingleResult();
             return (ProjectEntity) out;
-        } finally {
+        }catch (NoResultException ne){
+            throw new NoResultException("No project found with this id!!");
+        }
+        finally {
             if (transaction.isActive()) {
                 transaction.rollback();
             }

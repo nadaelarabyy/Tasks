@@ -5,11 +5,14 @@ import javax.persistence.Id;
 import java.io.Serializable;
 
 public class EmployeeProjectEntityPK implements Serializable {
-    private int employeeId;
-    private int projectId;
-
     @Column(name = "Employee_id")
     @Id
+    private int employeeId;
+    @Column(name = "Project_id")
+    @Id
+    private int projectId;
+
+
     public int getEmployeeId() {
         return employeeId;
     }
@@ -18,8 +21,7 @@ public class EmployeeProjectEntityPK implements Serializable {
         this.employeeId = employeeId;
     }
 
-    @Column(name = "Project_id")
-    @Id
+
     public int getProjectId() {
         return projectId;
     }

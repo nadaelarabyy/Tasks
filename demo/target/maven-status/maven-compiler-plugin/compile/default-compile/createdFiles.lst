@@ -2,6 +2,7 @@ entity\EmployeeEntity.class
 service\Repo\EmployeeService.class
 entity\ProjectEntity.class
 entity\EmployeeProjectEntity.class
+DTO\Paginator.class
 entity\DepartmentEntity.class
 service\RestApplication.class
 Main.class

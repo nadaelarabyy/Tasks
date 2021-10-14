@@ -19,15 +19,10 @@ public class EmployeeService {
 
     public List<EmployeeEntity> getAllEmployees() {
 
-        String out = "";
         try {
             transaction.begin();
 //            query 1 -> all employees with their respective role and info
             Query query1 = entityManager.createNativeQuery("select distinct * from employee", EmployeeEntity.class);
-
-//            for (Object employee : query1.getResultList()) {
-//                out += employee.toString() + "\n";
-//            }
             return query1.getResultList();
 
         } finally {
@@ -48,8 +43,9 @@ public class EmployeeService {
             query4.setParameter(1,role);
             return query4.getResultList();
 
-            
-        } finally {
+
+        }
+        finally {
             if (transaction.isActive()) {
                 transaction.rollback();
             }
@@ -66,11 +62,9 @@ public class EmployeeService {
             Query query2 = entityManager.createNativeQuery("select e.* from employee e inner join employee_project ep inner join project p on e.emp_id = ep.Employee_id and ep.Project_id = p.proj_id where p.proj_name= ?",EmployeeEntity.class);
             query2.setParameter(1,project);
 
-//            for (Object emp:query2.getResultList()){
-//                out+=emp.toString()+"\n";
-//            }
             return query2.getResultList();
-        } finally {
+        }
+        finally {
             if (transaction.isActive()) {
                 transaction.rollback();
             }
@@ -87,7 +81,11 @@ public class EmployeeService {
             query2.setParameter(1,id);
             Object out = query2.getSingleResult();
             return (EmployeeEntity) out;
-        } finally {
+        }
+        catch (NoResultException ex){
+            throw new NoResultException("No Employee found with this id!!");
+        }
+        finally {
             if (transaction.isActive()) {
                 transaction.rollback();
             }
@@ -97,5 +95,26 @@ public class EmployeeService {
         }
 
     }
+
+    public List<EmployeeEntity> getAllEmployeesPaginated(int index, int size){
+
+        try {
+            transaction.begin();
+//            query 1 -> all employees with their respective role and info
+            Query query1 = entityManager.createNativeQuery("select distinct * from employee", EmployeeEntity.class);
+            query1.setFirstResult(index);
+            query1.setMaxResults(size);
+            return query1.getResultList();
+
+        } finally {
+            if (transaction.isActive()) {
+                transaction.rollback();
+            }
+            entityManager.close();
+            entityManagerFactory.close();
+        }
+
+    }
+
 
 }

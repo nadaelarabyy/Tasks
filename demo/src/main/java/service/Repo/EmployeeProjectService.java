@@ -18,11 +18,11 @@ public class EmployeeProjectService {
 
     }
 
-    public String addEmployeeProject(EmployeeProjectEntity epe){
+    public String addEmployeeProject(EmployeeProjectEntity epe) throws Exception {
         String message = "";
         try
         {
-                transaction.begin();
+            transaction.begin();
             Query query3 = entityManager.createNativeQuery("insert into employee_project(Employee_id,Project_id) values(?1,?2)");
             query3.setParameter(1,epe.getEmployeeId());
             query3.setParameter(2,epe.getProjectId());
@@ -30,9 +30,10 @@ public class EmployeeProjectService {
             transaction.commit();
             entityManager.close();
             message = "Success";
-        } catch (HibernateException ex)
+        } catch (Exception ex)
         {
             message = ex.getMessage();
+            throw new Exception("This entry added already exists");
         }
         return message;
 

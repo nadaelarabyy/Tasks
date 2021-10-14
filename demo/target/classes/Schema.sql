@@ -122,34 +122,41 @@ create table Employee_project(
 # insert into Employee_project(Employee_id,Project_id)
 # values(1,1);
 # insert into Employee_project(Employee_id,Project_id)
-# values(3,1);
+# values(1,3);
+# insert into Employee_project(Employee_id,Project_id)
+# values(1,4);
+# ---------------------------
+
 # insert into Employee_project(Employee_id,Project_id)
 # values(2,1);
-# -- -----------------------------------------
 # insert into Employee_project(Employee_id,Project_id)
 # values(2,2);
 # insert into Employee_project(Employee_id,Project_id)
-# values(5,2);
-# -- ---------------------------------------
+# values(2,3);
 # insert into Employee_project(Employee_id,Project_id)
-# values(1,3);
+# values(2,5);
+# -- -----------------------------------------
+# insert into Employee_project(Employee_id,Project_id)
+# values(3,1);
+# -------------------------------------------
+# -- ---------------------------------------
+
 # insert into Employee_project(Employee_id,Project_id)
 # values(4,3);
 # insert into Employee_project(Employee_id,Project_id)
-# values(2,3);
+# values(4,5);
 # -- -----------------
-# insert into Employee_project(Employee_id,Project_id)
-# values(1,4);
+
 # insert into Employee_project(Employee_id,Project_id)
 # values(5,4);
-# -- -----------------------------------
 # insert into Employee_project(Employee_id,Project_id)
-# values(2,5);
-# insert into Employee_project(Employee_id,Project_id)
-# values(4,5);
+# values(5,2);
 # insert into Employee_project(Employee_id,Project_id)
 # values(5,5);
-#
+# -- -----------------------------------
+
+
+
 
 # -----------------------------------------
 -- ------------------------------------------------

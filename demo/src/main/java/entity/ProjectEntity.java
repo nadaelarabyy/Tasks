@@ -20,7 +20,7 @@ public class ProjectEntity {
     @Column(name = "start_date")
     private Date startDate;
 
-
+    public ProjectEntity(){}
     public int getProjId() {
         return projId;
     }
